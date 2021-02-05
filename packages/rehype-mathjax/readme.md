@@ -94,15 +94,16 @@ About 566kb minzipped.
 
 Render math as [CHTML][mathjax-chtml] (`require('rehype-mathjax/chtml')`).
 About 154kb minzipped.
-Needs a `fontURL` to be passed.
+Needs a `fontURL` to be passed in the CHTML output options, for instance using
+`{chtml: {fontURL: 'place/to/fonts'}}`.
 
 ###### Browser
 
 Tiny wrapper to render MathJax client-side (`require('rehype-mathjax/browser')`).
 About 1kb minzipped.
 
-Uses `options.displayMath` (default: `['\\[', '\\]']`) for display, and
-`options.inlineMath` (default: `['\\(', '\\)']`) for inline math.
+Uses `options.tex.displayMath` (default: `['\\[', '\\]']`) for display, and
+`options.tex.inlineMath` (default: `['\\(', '\\)']`) for inline math.
 
 You need to load MathJax on the client yourself and start it with corresponding
 markers.
@@ -110,11 +111,20 @@ Options are not passed to MathJax: do that yourself on the client.
 
 #### `options`
 
-All options, except when using the browser plugin, are passed to
-[MathJax][mathjax-options].
-Specifically, they are passed to the chosen output processor.
+All options are passed to [MathJax][mathjax-options].
 
-#### `options.tex`
+##### `options.chtml`
+
+These options are passed to the
+[CommonHTML output processor][mathjax-chtml-options] when using the CHTML
+plugin.
+
+##### `options.svg`
+
+These options are passed to the [SVG output processor][mathjax-svg-options]
+when using the SVG plugin.
+
+##### `options.tex`
 
 These options are passed to the [TeX input processor][mathjax-tex-options].
 
@@ -195,5 +205,9 @@ abide by its terms.
 [mathjax-svg]: http://docs.mathjax.org/en/latest/output/svg.html
 
 [mathjax-chtml]: http://docs.mathjax.org/en/latest/output/html.html
+
+[mathjax-chtml-options]: http://docs.mathjax.org/en/latest/options/output/chtml.html
+
+[mathjax-svg-options]: http://docs.mathjax.org/en/latest/options/output/svg.html
 
 [mathjax-tex-options]: http://docs.mathjax.org/en/latest/options/input/tex.html
