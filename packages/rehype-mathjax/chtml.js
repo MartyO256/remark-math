@@ -5,6 +5,6 @@ const createPlugin = require('./lib/core')
 
 module.exports = createPlugin('rehypeMathJaxCHtml', renderCHtml, true)
 
-function renderCHtml(inputOptions, outputOptions) {
-  return createRenderer(createInput(inputOptions), createOutput(outputOptions))
+function renderCHtml(options) {
+  return createRenderer(createInput(options), createOutput(options))
 }

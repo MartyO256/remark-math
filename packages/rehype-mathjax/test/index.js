@@ -31,14 +31,14 @@ test('rehype-mathjax', function (t) {
     function () {
       unified().use(chtml).freeze()
     },
-    /rehype-mathjax: missing `fontURL` in options/,
+    /rehype-mathjax: missing `fontURL`/,
     'should crash for CHTML w/o `fontURL`'
   )
 
   t.equal(
     unified()
       .use(parseHtml, {fragment: true})
-      .use(chtml, {fontURL: 'place/to/fonts'})
+      .use(chtml, {chtml: {fontURL: 'place/to/fonts'}})
       .use(stringify)
       .processSync(vfile.readSync({dirname: fixtures, basename: 'small.html'}))
       .toString(),
@@ -116,7 +116,7 @@ test('rehype-mathjax', function (t) {
   t.equal(
     unified()
       .use(parseHtml, {fragment: true})
-      .use(browser, {inlineMath: ['$', '$'], displayMath: ['$$', '$$']})
+      .use(browser, {tex: {inlineMath: ['$', '$'], displayMath: ['$$', '$$']}})
       .use(stringify)
       .processSync(vfile.readSync({dirname: fixtures, basename: 'small.html'}))
       .toString(),
@@ -174,7 +174,7 @@ test('rehype-mathjax', function (t) {
   t.equal(
     unified()
       .use(parseHtml, {fragment: true})
-      .use(chtml, {fontURL: 'place/to/fonts', tex: {tags: 'ams'}})
+      .use(chtml, {chtml: {fontURL: 'place/to/fonts'}, tex: {tags: 'ams'}})
       .use(stringify)
       .processSync(
         vfile.readSync({

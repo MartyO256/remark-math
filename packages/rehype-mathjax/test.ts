@@ -6,37 +6,39 @@ import browser from 'rehype-mathjax/browser'
 // $ExpectType Processor<Settings>
 unified().use(mathjax)
 // $ExpectType Processor<Settings>
-unified().use(mathjax, {minScale: 3})
+unified().use(mathjax, {svg: {minScale: 3}})
 // $ExpectType Processor<Settings>
-unified().use(mathjax, {minScale: 3, tex: {tags: 'ams'}})
+unified().use(mathjax, {svg: {minScale: 3}, tex: {tags: 'ams'}})
 // $ExpectError
 unified().use(mathjax, {invalidProp: true})
 
 // $ExpectType Processor<Settings>
-unified().use(chtml, {fontURL: 'url'})
+unified().use(chtml, {chtml: {fontURL: 'url'}})
 // $ExpectType Processor<Settings>
-unified().use(chtml, {fontURL: 'url', tex: {tags: 'ams'}})
+unified().use(chtml, {chtml: {fontURL: 'url'}, tex: {tags: 'ams'}})
 // $ExpectError
 unified().use(chtml)
 // $ExpectError
-unified().use(chtml, {})
+unified().use(chtml, {chtml: {}})
 // $ExpectError
-unified().use(chtml, {adaptiveCSS: true})
+unified().use(chtml, {chtml: {adaptiveCSS: true}})
 // $ExpectError
-unified().use(chtml, {fontURL: 'url', invalidProp: true})
+unified().use(chtml, {chtml: {fontURL: 'url', invalidProp: true}})
 
 // $ExpectType Processor<Settings>
 unified().use(browser)
 // $ExpectType Processor<Settings>
-unified().use(browser, {displayMath: ['$$', '$$']})
+unified().use(browser, {tex: {displayMath: ['$$', '$$']}})
 // $ExpectType Processor<Settings>
 unified().use(browser, {
-  displayMath: [
-    ['$$', '$$'],
-    ['((', '))']
-  ]
+  tex: {
+    displayMath: [
+      ['$$', '$$'],
+      ['((', '))']
+    ]
+  }
 })
 // $ExpectError
-unified().use(browser, {displayMath: ['$$']})
+unified().use(browser, {tex: {displayMath: ['$$']}})
 // $ExpectError
-unified().use(browser, {invalidProp: true})
+unified().use(browser, {tex: {invalidProp: true}})

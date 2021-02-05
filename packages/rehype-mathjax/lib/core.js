@@ -2,25 +2,16 @@ const visit = require('unist-util-visit')
 
 module.exports = createPlugin
 
-// To do next major: Remove `chtml` and `browser` flags once all the options use
-// the same format.
-function createPlugin(displayName, createRenderer, chtml, browser) {
+function createPlugin(displayName, createRenderer, chtml) {
   attacher.displayName = displayName
 
   return attacher
 
   function attacher(options) {
-    if (chtml && (!options || !options.fontURL)) {
+    if (chtml && (!options || !options.chtml || !options.chtml.fontURL)) {
       throw new Error(
-        'rehype-mathjax: missing `fontURL` in options, which must be set to a URL to reach MathJaX fonts'
+        'rehype-mathjax: missing `fontURL` in CHTML options, which must be set to a URL to reach MathJaX fonts'
       )
-    }
-
-    const inputOptions = browser ? options : (options || {}).tex
-    let outputOptions = options || {}
-    if ('tex' in outputOptions) {
-      outputOptions = Object.assign({}, outputOptions)
-      delete outputOptions.tex
     }
 
     transform.displayName = displayName + 'Transform'
@@ -28,7 +19,7 @@ function createPlugin(displayName, createRenderer, chtml, browser) {
     return transform
 
     function transform(tree) {
-      const renderer = createRenderer(inputOptions, outputOptions)
+      const renderer = createRenderer(options)
 
       let context = tree
       let found = false

@@ -7,6 +7,6 @@ interface BrowserOptions {
   inlineMath?: MathNotation | MathNotation[]
 }
 
-declare const renderBrowser: Plugin<[BrowserOptions?]>
+declare const renderBrowser: Plugin<[{tex?: BrowserOptions}?]>
 
 export = renderBrowser

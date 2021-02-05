@@ -1,9 +1,8 @@
 // Minimum TypeScript Version: 3.2
 import {Plugin} from 'unified' // eslint-disable-line import/no-extraneous-dependencies
 
-// Should be ported back to MathJax repo
 // http://docs.mathjax.org/en/latest/options/output/svg.html#the-configuration-block
-interface MathJaxSvgOptions {
+interface MathJaxOutputSvgOptions {
   scale: number
   minScale: number
   mtextInheritFont: boolean
@@ -39,10 +38,13 @@ interface MathJaxInputTexOptions {
   formatError: (jax: any, error: any) => string
 }
 
-type RenderSVGOptions = Partial<MathJaxSvgOptions>
-
 declare const renderSvg: Plugin<
-  [(RenderSVGOptions & {tex?: Partial<MathJaxInputTexOptions>})?]
+  [
+    {
+      svg?: Partial<MathJaxOutputSvgOptions>
+      tex?: Partial<MathJaxInputTexOptions>
+    }?
+  ]
 >
 
 export = renderSvg

@@ -1,19 +1,19 @@
 import {Plugin} from 'unified' // eslint-disable-line import/no-extraneous-dependencies
 
 // http://docs.mathjax.org/en/latest/options/output/chtml.html#the-configuration-block
-interface MathJaxCHtmlOptions {
-  scale?: number
-  minScale?: number
-  matchFontHeight?: boolean
-  mtextInheritFont?: boolean
-  merrorInheritFont?: boolean
-  mathmlSpacing?: boolean
-  skipAttributes?: Record<string, boolean>
-  exFactor?: number
-  displayAlign?: 'left' | 'center' | 'right'
-  displayIndent?: string
+interface MathJaxOutputCHtmlOptions {
+  scale: number
+  minScale: number
+  matchFontHeight: boolean
+  mtextInheritFont: boolean
+  merrorInheritFont: boolean
+  mathmlSpacing: boolean
+  skipAttributes: Record<string, boolean>
+  exFactor: number
+  displayAlign: 'left' | 'center' | 'right'
+  displayIndent: string
   fontURL: string
-  adaptiveCSS?: boolean
+  adaptiveCSS: boolean
 }
 
 // http://docs.mathjax.org/en/latest/options/input/tex.html#the-configuration-block
@@ -37,7 +37,12 @@ interface MathJaxInputTexOptions {
 }
 
 declare const renderCHtml: Plugin<
-  [MathJaxCHtmlOptions & {tex?: Partial<MathJaxInputTexOptions>}]
+  [
+    {
+      chtml: {fontURL: string} & Partial<MathJaxOutputCHtmlOptions>
+      tex?: Partial<MathJaxInputTexOptions>
+    }
+  ]
 >
 
 export = renderCHtml
